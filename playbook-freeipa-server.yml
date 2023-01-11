@@ -1,0 +1,32 @@
+---
+# Ansible Playbook install Freeipa Server and its requirement in Localhost
+- hosts : localhost
+  become: yes
+  become_user: root
+  become_method: sudo  
+  tasks :
+    - name: Install Epel-Release
+      become: true
+      yum:
+        name: epel-release
+        state: latest
+    - name: Running yum update
+      yum:
+        name: '*'
+        state: latest
+    - name: Disable SELinux
+      selinux:
+        state: disabled
+    - name: Install FreeIPA Server
+      become: true
+      yum:
+        name: ipa-server, ipa-server-dns
+        state: latest
+    - name: Install FreeIPA Server with DNS
+      command: ipa-server-install --realm=YOUR-REALM.COM --domain=your-domain.com --ds-password=your-password --admin-password=admin-password --mkhomedir --ssh-trust-dns --setup-dns --unattended --auto-forwarders
+    - name: Open port Freeipa in Firewall
+      become: true
+      command: firewall-cmd --add-service={http,https,dns,ntp,freeipa-ldap,freeipa-ldaps} --permanent
+    - name: Reload config Firewall
+      become: true
+      command: firewall-cmd --reload
