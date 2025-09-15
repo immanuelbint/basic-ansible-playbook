@@ -1,5 +1,5 @@
 # basic-ansible-playbook
-example basic Ansible playbook, this playbook was deprecated, I'm strongly recommend that you don't use it anymore, I'll consider update my old ansible playbook to meet current security best practices
+example basic Ansible playbook, this playbook was deprecated, I'm strongly recommend that you don't use it anymore, I'll planning to update my old ansible playbook to meet current security best practices
 
 ## Environment
 
